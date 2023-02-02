@@ -12,6 +12,8 @@ public class MakingOrderTest {
     private WebDriver driver;
 
 
+
+
     @Before
     public void upDriver() {
         System.setProperty("webdriver.chrome.driver", "D:\\projects3\\chromedriver.exe");
@@ -20,7 +22,6 @@ public class MakingOrderTest {
         driver.get("https://qa-scooter.praktikum-services.ru");
 
     }
-
     @Test
     public void makeOrderUpTest() {
         doTest(HomePageScooter.UP_ORDER_BUTTON);
@@ -39,14 +40,14 @@ public class MakingOrderTest {
         order.ButtonNextClick();
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        order.orderDetails();
+        order.orderDetails("05.02.2023", 3,"серый");
+
     }
 
     @Test
     public void makeOrderDownTest() {
         doTest(HomePageScooter.DOWN_ORDER_BUTTON);
     }
-
 
     @After
     public void closeDriver(){

@@ -1,3 +1,4 @@
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -11,20 +12,28 @@ public class FAQTest {
     private WebDriver driver;
 
     @Before
-    public void upDriver()
+    public void upDriverGoogle()
 
     {
         System.setProperty("webdriver.chrome.driver", "D:\\projects3\\chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get("https://qa-scooter.praktikum-services.ru");
         driver.findElement(By.xpath("//*[@id=\"rcc-confirm-button\"]")).click();
     }
 
+
     @Test
     public void test() {
-        WebElement element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[5]"));
+        HomePageScooter object = new HomePageScooter(driver);
+        WebElement element = driver.findElement(By.className("accordion"));
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
+        object.equalsAnswer();
 
-
+    }
+    //закрываю браузер
+    @After
+    public void tearDown() {
+        driver.close();
     }
 };
