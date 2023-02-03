@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,45 +9,32 @@ import java.time.Duration;
 public class OrderPageScooter {
     private WebDriver driver;
 
-
-
-
-
     //Имя
-    private static final By NAME_FIELD = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[1]/input");
+    private static final By NAME_FIELD = By.xpath(".//input[@placeholder='* Имя']");
     //Фамилия
-    private static final By SECOND_NAME_FIELD = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/input");
+    private static final By SECOND_NAME_FIELD = By.xpath(".//input[@placeholder='* Фамилия']");
     //Адрес
-    private static final By ADDRESS_FIELD = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[3]/input");
+    private static final By ADDRESS_FIELD = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     //Станция метро
     private static final By METRO_FIELD = By.className("select-search");
 
     //Номер телефона
-    private static final By PHONE_NUMBER_FIELD = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[5]/input");
-    private static final By BUTTON_NEXT = By.xpath("//*[@id=\"root\"]/div/div[2]/div[3]/button");
-
-
-
+    private static final By PHONE_NUMBER_FIELD = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private static final By BUTTON_NEXT = By.xpath(".//button[text()='Далее']");
     //_______________________________________________Форма про аренду__________________________________________________//
     //Когда привезти
-    private static final By DATE_OF_DELIVERY_FIELD = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[1]/div/div/input");
-
+    private static final By DATE_OF_DELIVERY_FIELD = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
     //Срок аренды
     private static final By RENT_TIME_FIELD = By.className("Dropdown-placeholder");
-
-
     //цвет самоката: 1. черный; 2. серый
-    private static final By BLACK_COLOR_SCOOTER = By.xpath("//*[@id=\"black\"]");
-    private static final By GRAY_COLOR_SCOOTER = By.xpath("//*[@id=\"grey\"]");
+    private static final By BLACK_COLOR_SCOOTER = By.xpath(".//input[@id='black']");
+    private static final By GRAY_COLOR_SCOOTER = By.xpath(".//input[@id='grey']");
     //Кнопка заказать
-    private static final By ORDER_BUTTON = By.xpath("//*[@id=\"root\"]/div/div[2]/div[3]/button[2]");
+    private static final By ORDER_BUTTON = By.xpath(".//button[2][text()='Заказать']");
     //Потдвердить заказ
-    private static final By ACCEPT_ORDER = By.xpath("//*[@id=\"root\"]/div/div[2]/div[5]/div[2]/button[2]");
-    private static final By SHOW_STATUS = By.xpath(".//button[text()='Посмотреть статус'");
-
-    private By orderIsProcessed = By.className("Order_Modal__YZ-d3");
-
-
+    private static final By ACCEPT_ORDER = By.xpath(".//button[text()='Да']");
+    private static final By SHOW_STATUS = By.xpath(".//button[text()='Посмотреть статус']");
+    private static final By ORDER_IS_PROCESSED = By.className("Order_Modal__YZ-d3");
 
     public OrderPageScooter(WebDriver driver) {
         this.driver = driver;
@@ -83,7 +71,6 @@ public class OrderPageScooter {
         enterAddress(address);
         enterMetro(metro);
         enterPhone(phone);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public void ButtonNextClick() {
@@ -99,32 +86,15 @@ public class OrderPageScooter {
 
     public void enterRentTime(int countOfDays) {
         driver.findElement(RENT_TIME_FIELD).click();
-        if(countOfDays == 1){
-            driver.findElement(By.xpath(".//div[1][@class='Dropdown-option']")).click();
-        } else if (countOfDays == 2) {
-            driver.findElement(By.xpath(".//div[2][@class='Dropdown-option']")).click();
-        } else if (countOfDays == 3) {
-            driver.findElement(By.xpath(".//div[3][@class='Dropdown-option']")).click();
-        } else if (countOfDays == 4) {
-            driver.findElement(By.xpath(".//div[4][@class='Dropdown-option']")).click();
-        } else if (countOfDays == 5) {
-            driver.findElement(By.xpath(".//div[5][@class='Dropdown-option']")).click();
-        } else if (countOfDays == 6) {
-            driver.findElement(By.xpath(".//div[6][@class='Dropdown-option']")).click();
-        } else {
-            driver.findElement(By.xpath(".//div[7][@class='Dropdown-option']")).click();
-        }
-
+        driver.findElement(By.xpath(".//div[" + countOfDays + "][@class='Dropdown-option']")).click();
     }
 
     public void enterColor(String color) {
-        if(color == "черный"){
+        if(color.equals("черный")){
             driver.findElement(BLACK_COLOR_SCOOTER).click();
-        } else if ( color == "серый") {
+        } else if ( color.equals("серый")) {
             driver.findElement(GRAY_COLOR_SCOOTER).click();
         }
-
-
     }
     public void OrderButtonClick(){
       driver.findElement(ORDER_BUTTON).click();
@@ -135,11 +105,6 @@ public class OrderPageScooter {
     public void showStatusClick(){
         driver.findElement(SHOW_STATUS).click();
     }
-    public void orderProcessed(){
-        driver.findElement(orderIsProcessed).click();
-    }
-
-
     public void orderDetails( String dayOfTheMonth, int countOfDays, String color){
         enterDateOfDelivery(dayOfTheMonth);
         enterRentTime(countOfDays);
@@ -147,8 +112,9 @@ public class OrderPageScooter {
         OrderButtonClick();
         AcceptOrderClick();
         new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.elementToBeClickable(By.className("orderIsProcessed")));
+                .until(ExpectedConditions.elementToBeClickable(By.className("ORDER_IS_PROCESSED")));
         showStatusClick();
+        Assert.assertTrue(driver.findElement(ORDER_IS_PROCESSED).isDisplayed());
 
 
 
