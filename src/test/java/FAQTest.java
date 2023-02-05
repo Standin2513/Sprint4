@@ -15,14 +15,14 @@ public class FAQTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://qa-scooter.praktikum-services.ru");
-        driver.findElement(By.xpath("//*[@id=\"rcc-confirm-button\"]")).click();
     }
     @Test
     public void test() {
-        HomePageScooter object = new HomePageScooter(driver);
+        MainPage mainPageTest = new MainPage(driver);
+        mainPageTest.cookies();
         WebElement element = driver.findElement(By.className("accordion"));
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
-        object.equalsAnswer();
+        mainPageTest.equalsAnswer();
     }
     //закрываю браузер
     @After

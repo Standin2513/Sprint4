@@ -7,7 +7,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
 public class MakingOrderTest {
-
     private WebDriver driver;
     @Before
     public void upDriver() {
@@ -18,26 +17,22 @@ public class MakingOrderTest {
     }
     @Test
     public void makeOrderUpTest() {
-        doTest(HomePageScooter.UP_ORDER_BUTTON);
+        doTest(OrderPage.UP_ORDER_BUTTON);
     }
     public void doTest(By button){
-        HomePageScooter object = new HomePageScooter(driver);
-
+        OrderPage orderTest = new OrderPage(driver);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        object.cookies();
-        object.clickButton(button);
-
-        OrderPageScooter order = new OrderPageScooter(driver);
+        orderTest.cookies();
+        orderTest.clickButton(button);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        order.enterUserData("Дмитрий", "Зеленов", "Юности 13", "Таганская", "88005553535");
-        order.ButtonNextClick();
-
+        orderTest.enterUserData("Дмитрий", "Зеленов", "Юности 13", "Таганская", "88005553535");
+        orderTest.ButtonNextClick();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        order.orderDetails("05.02.2023", 2,"серый");
+        orderTest.orderDetails("05.02.2023", 2,"серый");
     }
     @Test
     public void makeOrderDownTest() {
-        doTest(HomePageScooter.DOWN_ORDER_BUTTON);
+        doTest(OrderPage.DOWN_ORDER_BUTTON);
     }
     @After
     public void closeDriver(){
