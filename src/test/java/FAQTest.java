@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class FAQTest {
     private WebDriver driver;
+
     @Before
     public void upDriverGoogle() {
         System.setProperty("webdriver.chrome.driver", "D:\\projects3\\chromedriver.exe");
@@ -16,14 +17,16 @@ public class FAQTest {
         driver.manage().window().maximize();
         driver.get("https://qa-scooter.praktikum-services.ru");
     }
+
     @Test
     public void test() {
         MainPage mainPageTest = new MainPage(driver);
         mainPageTest.cookies();
         WebElement element = driver.findElement(By.className("accordion"));
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
         mainPageTest.equalsAnswer();
     }
+
     //закрываю браузер
     @After
     public void tearDown() {

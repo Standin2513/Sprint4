@@ -10,33 +10,23 @@ public class OrderPage {
     public static final By UP_ORDER_BUTTON = By.xpath(".//button[text()='Заказать]");//Верхняя кнопка заказать
     public static final By DOWN_ORDER_BUTTON = By.className("Button_UltraBig__UU3Lp");//Нижняя кнопка заказать
     private By accept_cookies = By.xpath("//*[@id=\"rcc-confirm-button\"]"); // Принять куки
-    //Имя
     public void clickButton(By button){
         driver.findElement(button).click();
     }
-    private static final By NAME_FIELD = By.xpath(".//input[@placeholder='* Имя']");
-    //Фамилия
-    private static final By SECOND_NAME_FIELD = By.xpath(".//input[@placeholder='* Фамилия']");
-    //Адрес
-    private static final By ADDRESS_FIELD = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
-    //Станция метро
-    private static final By METRO_FIELD = By.className("select-search");
-
-    //Номер телефона
-    private static final By PHONE_NUMBER_FIELD = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private static final By NAME_FIELD = By.xpath(".//input[@placeholder='* Имя']"); //Имя
+    private static final By SECOND_NAME_FIELD = By.xpath(".//input[@placeholder='* Фамилия']");     //Фамилия
+    private static final By ADDRESS_FIELD = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");    //Адрес
+    private static final By METRO_FIELD = By.className("select-search"); //Станция метро
+    private static final By PHONE_NUMBER_FIELD = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");  //Номер телефона
     private static final By BUTTON_NEXT = By.xpath(".//button[text()='Далее']");
     //_______________________________________________Форма про аренду__________________________________________________//
-    //Когда привезти
-    private static final By DATE_OF_DELIVERY_FIELD = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
+    private static final By DATE_OF_DELIVERY_FIELD = By.xpath(".//input[@placeholder='* Когда привезти самокат']");     //Когда привезти
     //Срок аренды
-    private static final By RENT_TIME_FIELD = By.className("Dropdown-placeholder");
-    //цвет самоката: 1. черный; 2. серый
-    private static final By BLACK_COLOR_SCOOTER = By.xpath(".//input[@id='black']");
-    private static final By GRAY_COLOR_SCOOTER = By.xpath(".//input[@id='grey']");
-    //Кнопка заказать
-    private static final By ORDER_BUTTON = By.xpath(".//button[2][text()='Заказать']");
-    //Потдвердить заказ
-    private static final By ACCEPT_ORDER = By.xpath(".//button[text()='Да']");
+    private static final By RENT_TIME_FIELD = By.className("Dropdown-placeholder");     //Срок аренды
+    private static final By BLACK_COLOR_SCOOTER = By.xpath(".//input[@id='black']");  //цвет самоката: 1. черный;
+    private static final By GRAY_COLOR_SCOOTER = By.xpath(".//input[@id='grey']");  //цвет самоката: 2. серый
+    private static final By ORDER_BUTTON = By.xpath(".//button[2][text()='Заказать']");     //Кнопка заказать
+    private static final By ACCEPT_ORDER = By.xpath(".//button[text()='Да']");     //Потдвердить заказ
     private static final By SHOW_STATUS = By.xpath(".//button[text()='Посмотреть статус']");
     private static final By ORDER_IS_PROCESSED = By.className("Order_Modal__YZ-d3");
 
@@ -122,12 +112,5 @@ public class OrderPage {
                 .until(ExpectedConditions.elementToBeClickable(By.className("ORDER_IS_PROCESSED")));
         showStatusClick();
         assertTrue(driver.findElement(ORDER_IS_PROCESSED).isDisplayed());
-
-
-
-
-
-
-
     }
 }
